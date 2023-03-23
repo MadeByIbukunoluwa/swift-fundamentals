@@ -192,3 +192,87 @@ if let actualNumber = Int(possibleNumber) {
     print("The string \"\(possibleNumber)\" couldn't be converted to an integer")
 }
 
+//You can use a shorter spelling to unwrap an optional value: write the name of the constant or variable that you're unwrapping , the new unwrapped constant implicitly uses the same name as the optional value
+
+let nyNumber = 0 
+
+if let myNumber {
+    print("My number is \(myNumber)")
+}
+
+// You can include as many optional bindings and Boolean conditions in a single if statement as you need to , separated by commas 
+// The following if statments are equivalent
+
+if let firstNumber = Int("4"), let secondNumber = Int("42"), firstNumber < secondNumber && secondNumber < 100 {
+    print("\(firstNumber) < \(secondNumber) < 100")
+}
+
+if let firstNumber = Int("4") {
+    if let secondNumber = Int("42") {
+        if firstNumber < secondNumber && secondNumber < 100 {
+            print("\(firstNumber) < \(secondNumber) < 100")
+        }
+    }
+}
+
+// Sometimes it’s clear from a program’s structure that an optional will always have a value, after that value is first set. In these cases, it’s useful to remove the need to check and unwrap the optional’s value every time it’s accessed, because it can be safely assumed to have a value all of the time.
+
+// These kinds of optionals are defined as implicitly unwrapped optionals. You write an implicitly unwrapped optional by placing an exclamation point (String!) rather than a question mark (String?) after the type that you want to make optional. Rather than placing an exclamation point after the optional’s name when you use it, you place an exclamation point after the optional’s type when you declare it.
+
+
+let possibleString:String? = "An optional string"
+
+let forcedString: String = possibleString!
+
+
+let assumedString: String! = "An implicitly unwrapped optional string."
+
+let implicitString:String = assumedString 
+
+if assumedString != nil {
+    print(assumedString)
+}
+
+//You can also use an implicitly unwrapped optional with optional binding to check and unwrap its value in  single statement 
+
+//func canThrowAnError() throws {
+//
+//}
+do {
+    try canThrowAnError()
+} catch {
+    
+}
+
+//Error handling repsponding to different error conditions
+ 
+func makeASandwich() throws {
+    
+}
+
+do {
+    try makeASandwich()
+    eatASandwich()
+} catch SandwichError.outOfCleanDishes {
+    washDishes
+} catch SandwichError.missingIngredients(let ingredeients) {
+    buyGroceries(ingredients)
+}
+
+let age = -3
+
+assert(age >= 0, "A person age an't be less than zero")
+
+if age > 10 {
+    print("You can ride the roller coaster or the ferris wheel")
+} else if age >= 0 {
+    print("You can ride the ferris wheel")
+} else {
+    assertionFailure("A person's age can't be less than zero")
+}
+
+//Enforcing preconditions 
+
+precondition(index > 0, "INdex must be greater than zero")
+
+
