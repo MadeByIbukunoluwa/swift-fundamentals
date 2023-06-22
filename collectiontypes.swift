@@ -177,23 +177,128 @@ let evenDigits : Set = [0,2,4,6,8]
 
 let singleDigitPrimeNumbers:Set = [2,3,5,7]
 
-oddDigits.union(evenDigits).sorted()
+print(oddDigits.union(evenDigits).sorted())
 
-oddDigits.intersection(evenDigits).sorted()
+print(oddDigits.intersection(evenDigits).sorted())
 
-oddDigits.subtracting(singleDigitPrimeNumbers).sorted()
+print(oddDigits.subtracting(singleDigitPrimeNumbers).sorted())
 
-oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted()
+print(oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted())
 
 let houseAnimals: Set = ["🐶", "🐱"]
 let farmAnimals: Set = ["🐮", "🐔", "🐑", "🐶", "🐱"]
 let cityAnimals: Set = ["🐦", "🐭"]
 
 
-houseAnimals.isSubset(of:farmAnimals)
+print(houseAnimals.isSubset(of:farmAnimals))
 
-farmAnimals.isSuperset(of:houseAnimals)
+print(farmAnimals.isSuperset(of:houseAnimals))
 
-farmAnimals.isDisjoint(with:cityAnimals)
+print(farmAnimals.isDisjoint(with:cityAnimals))
 
+
+
+// Dictionaries 
+
+//A dictionary stores associations between keys of the same type and values of the same type in a collection with no defined ordering. Each value is associated with a unique key, which acts as an identifier for that value within the dictionary. Unlike items in an array, items in a dictionary don’t have a specified order. You use a dictionary when you need to look up values based on their identifier, in much the same way that a real-world dictionary is used to look up the definition for a particular word.
+
+// You can also write the type of a dictionary in shorthand form as [Key: Value]
+
+// Although the two forms are functionally identical, the shorthand form is preferred and is used throughout this guide when referring to the type of a dictionary.
+
+// Creating an Empty Dictionary 
+
+var namesOfIntegers:[Int:String] = [:]
+
+// This example creates an empty dictionary of type [Int: String] to store human-readable names of integer values. Its keys are of type Int, and its values are of type String.
+
+namesOfIntegers[16] = "sixteen"
+
+namesOfIntegers = [:]
+
+//Creating a Dictionary with a Dictionary literal 
+
+//You can also initialize a dictionary with a dictionary literal, which has a similar syntax to the array literal seen earlier. A dictionary literal is a shorthand way to write one or more key-value pairs as a Dictionary collection.
+
+// A key-value pair is a combination of a key and a value. In a dictionary literal, the key and value in each key-value pair are separated by a colon. The key-value pairs are written as a list, separated by commas, surrounded by a pair of square brackets:
+
+var airports: [String:String] = ["YYZ": "Toronto Pearson", "DUB":"Dublin"]
+
+// the airports dictionary is initialized with a dictionary literal containing two key value pairs . The first pair has a key of "YYZ" and a value of "Toronto Pearson". The second pair has a key of "DUB" and a value of "Dublin".
+
+// Accessing and modifying a dictionary 
+
+// checking the number of items in a dictionary 
+print("The airports dictionary contains \(airports.count) items")
+
+if (airports.isEmpty) {
+    print("The airports dictionary is empty")
+} else {
+    print("The airports dictionary isn't empty")
+}
+
+// you can add a new item to the dictionry with the subscript syntax 
+
+airports["LHR"] = "London"
+
+// you can also use it to change the value associated with a particular key
+
+airports["LHR"] = "London Heathrow"
+
+// As an alternative to subscripting, use a dictionary’s updateValue(_:forKey:) method to set or update the value for a particular key. Like the subscript examples above, the updateValue(_:forKey:) method sets a value for a key if none exists, or updates the value if that key already exists. Unlike a subscript, however, the updateValue(_:forKey:) method returns the old value after performing an update. This enables you to check whether or not an update took place.
+
+
+if let oldValue = airports.updateValue("Dublin Airport", forKey:"DUB") {
+    print("The old value for DUB was \(oldValue)")
+}
+
+// you can alos use subscript syntax to retieve a value form the dictionary for a particular key. Because it’s possible to request a key for which no value exists, a dictionary’s subscript returns an optional value of the dictionary’s value type. If the dictionary contains a value for the requested key, the subscript returns an optional value containing the existing value for that key. Otherwise, the subscript returns nil:
+if let airportName = airports["DUB"] {
+    print("The name of the airport is \(airportName)")
+} else {
+    print("That airport isn't in the airports dictionary")
+}
+
+// you can use subscript syntax to remove a key value pair form a dictionary by assigning a value of nil for that key 
+
+airports["APL"] = "Apple International"
+
+airports["APL"] = nil 
+
+
+// remove a key-value pair from a dictionary with the removeValue(forkey:) method. This method removes the key-value pair if it exists and returns the removed value or returns nil if no value existed 
+
+if let removedValue = airports.removeValue(forKey: "DUB") {
+    print("The removed airport's name is \(removedValue).")
+} else {
+    print("The airports dictionary doesn't contain a value for DUB.")
+}
+
+// iterating over a dictionary 
+// you can iterate over the key value pairs in a dictionary with a for -in loop Each item in the dictionary is returned as a (key, value) tuple, and you can decompose the tuple’s members into temporary constants or variables as part of the iteration:
+
+for (airportCode, airportName) in airports {
+    print("\(airportCode): \(airportName)")
+}
+
+// You can also retrieve an iterable collection of a dictionary’s keys or values by accessing its keys and values properties:
+
+for airportCode in airports.keys {
+    print("Airport code: \(airportCode)")
+}
+// Airport code: LHR
+// Airport code: YYZ
+
+
+for airportName in airports.values {
+    print("Airport name: \(airportName)")
+}
+
+// If you need to use a dictionary’s keys or values with an API that takes an Array instance, initialize a new array with the keys or values property:
+
+let airportCodes = [String](airports.keys)
+// airportCodes is ["LHR", "YYZ"]
+
+
+let airportNames = [String](airports.values)
 
