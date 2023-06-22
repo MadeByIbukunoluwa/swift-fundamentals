@@ -101,4 +101,70 @@ for (index,value) in shoppingList.enumerated() {
 
 
 
+//Sets 
+// A set stores distinct values of the same type in a collection with no defined ordering.
 
+// Hash Values for Set Types
+// A type must be hashable in order to be stored in a set — that is, the type must provide a way to compute a hash value for itself. A hash value is an Int value that’s the same for all objects that compare equally, such that if a == b, the hash value of a is equal to the hash value of b.
+
+//Creating and initializing an empty set
+
+var letters = Set<Character>()
+
+print("letters is of type Set<Character with \(letters.count) items")
+
+letters.insert("a")
+
+letters = []
+
+// initializing a new set with an Array Literal 
+
+// you can also remove the string generic tup[e as it can be inferred automatically
+var favoriteGenres:Set<String> = ["Rock", "Classical", "Hip hop"]
+
+
+// Accessing and modifying a Set 
+// you access or modify a set through its methods and properties
+
+print("I have \(favoriteGenres.count) favorite music genres")
+
+if favoriteGenres.isEmpty {
+    print("As far as music goes, i'm not picky")
+} else {
+    print("I have particular music preferences")
+}
+
+// insert an item into a set 
+favoriteGenres.insert("jazz")
+
+// remove an item 
+// You can remove an item from a set by calling the set’s remove(_:) method, which removes the item if it’s a member of the set, and returns the removed value, or returns nil if the set didn’t contain it.
+
+if let removedGenre = favoriteGenres.remove("Rock") {
+    print("\(removedGenre) ? I'm over it")
+} else {
+    print("I never much cared for that")
+}
+
+// check whether a set contains a particular item 
+
+if favoriteGenres.contains("Funk") {
+    print("i GET UP ON THE GOOD FOOT")
+} else {
+    print("It's too funky in here")
+ }
+
+
+// iterating over a Set 
+
+for genre in favoriteGenres {
+    print("\(genre)")
+}
+
+// to iterate over the values of a set in a specific order , use the sorted() method
+
+for genre in favoriteGenres.sorted() {
+    print("\(genre)")
+}
+
+// performing set operations
