@@ -240,24 +240,127 @@ print(welcome1)
 //However, unlike strings, you use substrings for only a short amount of time while performing actions on a string. When you’re ready to store the result for a longer time, you convert the substring to an instance of String. 
 
 
-let greeting = "Hello, world"
+let greeting1 = "Hello, world"
 
-let index = greeting.firstIndex(of: ",") ?? greeting.endIndex
+let index1 = greeting1.firstIndex(of: ",") ?? greeting1.endIndex
 
-let beginning = greeting[..<index]
+let beginning = greeting1[..<index1]
 
 
-let newStirng = String(beginning)
+let newString = String(beginning)
 
+print(newString)
 
 //comparing Strings 
 
 // String and character equality 
 
-let quotation = "we're are a lot alike, you and I"
+//Two String values (or two Character values) are considered equal if their extended grapheme clusters are canonically equivalent. Extended grapheme clusters are canonically equivalent if they have the same linguistic meaning and appearance, even if they’re composed from different Unicode scalars behind the scenes.
+
+let quotation1 = "we're are a lot alike, you and I"
 
 let sameQuotation = "We're a lot alike, you and I"
 
-if quotation === sameQuotation {
+if quotation1 == sameQuotation {
     print("These two strings are considered equal")
 }
+
+// For example, LATIN SMALL LETTER E WITH ACUTE (U+00E9) is canonically equivalent to LATIN SMALL LETTER E (U+0065) followed by COMBINING ACUTE ACCENT (U+0301). Both of these extended grapheme clusters are valid ways to represent the character é, and so they’re considered to be canonically equivalent:
+
+
+let eAcuteQuestion = "Voulez-vous un caf \u{E9}"
+
+let combinedEAcuteQuestion = "Voulez-vous un caf \u{65}\u{301}"
+
+if eAcuteQuestion == combinedEAcuteQuestion {
+    print("These two strings are considered equal")
+}
+
+
+// Conversely, LATIN CAPITAL LETTER A (U+0041, or "A"), as used in English, is not equivalent to CYRILLIC CAPITAL LETTER A (U+0410, or "А"), as used in Russian. The characters are visually similar, but don’t have the same linguistic meaning:
+
+
+let latinCapitalLetterA : Character = "\u{41}"
+
+let cyrillicCapitalLetterA: Character = "\u{0410}"
+
+
+if latinCapitalLetterA != cyrillicCapitalLetterA {
+    print("These two characters aren't equivalent.")
+}
+
+
+// String and character comparisons in Swift aren’t locale-sensitive.
+
+// Prefix and Suffix Equality
+
+let romeoAndJuliet = [
+    "Act 1 Scene 1: Verona, A public place",
+    "Act 1 Scene 2: Capulet's mansion",
+    "Act 1 Scene 3: A room in Capulet's mansion",
+    "Act 1 Scene 4: A street outside Capulet's mansion",
+    "Act 1 Scene 5: The Great Hall in Capulet's mansion",
+    "Act 2 Scene 1: Outside Capulet's mansion",
+    "Act 2 Scene 2: Capulet's orchard",
+    "Act 2 Scene 3: Outside Friar Lawrence's cell",
+    "Act 2 Scene 4: A street in Verona",
+    "Act 2 Scene 5: Capulet's mansion",
+    "Act 2 Scene 6: Friar Lawrence's cell"
+]
+
+
+var act1SceneCount = 0 
+
+for scene in romeoAndJuliet {
+    if scene.hasPrefix("Act 1") {
+        act1SceneCount += 1 
+    }
+}
+
+print("There are \(act1SceneCount) scenes in Act 1")
+
+var mansionCount = 0 
+
+var ceilCount = 0 
+
+for scene in romeoAndJuliet {
+    if scene.hasSuffix("capulet's mansion") {
+        mansionCount += 1 
+    } else if scene.hasSuffix("Fryer lowsrence") {
+        ceilCount += 1 
+    }
+}
+
+print("\(mansionCount) mansion scenes; \(ceilCount) cell scenes")
+
+
+
+// Unicode representation of strings 
+
+// When a Unicode string is written to a text file or some other storage, the Unicode scalars in that string are encoded in one of several Unicode-defined encoding forms. Each form encodes the string in small chunks known as code units. These include the UTF-8 encoding form (which encodes a string as 8-bit code units), the UTF-16 encoding form (which encodes a string as 16-bit code units), and the UTF-32 encoding form (which encodes a string as 32-bit code units).
+
+// A collection of UTF-8 code units (accessed with the string’s utf8 property)
+
+// A collection of UTF-16 code units (accessed with the string’s utf16 property)
+
+
+// You can access a UTF-8 representation of a String by iterating over its utf8 property. This property is of type String.UTF8View, which is a collection of unsigned 8-bit (UInt8) values, one for each byte in the string’s UTF-8 representation
+
+let dogString = "Dog‼🐶" 
+
+
+
+for codeUnit in dogString.utf8 {
+    print("\(codeUnit)  ",terminator: "")
+}
+for codeUnit in dogString.utf16 {
+    print("\(codeUnit)  ",terminator: "")
+}
+
+print("")
+
+for scalar in dogString.unicodeScalars {
+    print("\(scalar)")
+}
+
+print("")
