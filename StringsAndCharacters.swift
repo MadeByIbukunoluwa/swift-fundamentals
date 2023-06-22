@@ -1,4 +1,5 @@
 
+//https://docs.swift.org/swift-book/documentation/the-swift-programming-language/stringsandcharacters/#String-Mutability
 
 // String literal 
 let someStirng = "Some stirng literal value"
@@ -148,10 +149,115 @@ let enclosedEAcute:Character = "\u{E9}\u{20DD}"
 
 //Unicode scalara for regional indicator symbols can be combiend in pairs to amke a single character value 
 
-let regionalIndicatorForUS:Character = "\u{1F1FA}\u{F1F8}"
+let regionalIndicatorForUS = "\u{1F1FA}\u{F1F8}"
+
+print(regionalIndicatorForUS)
 
 // Counting Charcters 
 let unusualMenagerie = "Koala 🐨, Snail 🐌, Penguin 🐧, Dromedary 🐪"
 
 print("unusualMenagerie has \(unusualMenagerie.count) characters")
 
+// Note that Swift’s use of extended grapheme clusters for Character values means that string concatenation and modification may not always affect a string’s character count.
+
+// For example, if you initialize a new string with the four-character word cafe, and then append a COMBINING ACUTE ACCENT (U+0301) to the end of the string, the resulting string will still have a character count of 4, with a fourth character of é, not e:
+
+
+var word = "cafe"
+
+print("the number of characters in \(word) is \(word.count)")
+
+word += "\u{301}"
+
+print("the number of characters in \(word) is \(word.count)")
+
+//Accessing and modifying a string 
+
+
+//different characters can require different amounts of memory to store, so in order to determine which Character is at a particular position, you must iterate over each Unicode scalar from the start or end of that String. For this reason, Swift strings can’t be indexed by integer values.
+
+// each srtng value has an associated index type , String.Index which corresponds to the position of each string 
+
+//You access the indices before and after a given index using the index(before:) and index(after:) methods of String. To access an index farther away from the given index, you can use the index(_:offsetBy:) method instead of calling one of these methods multiple times.
+
+let greeting = "Guten Tag! "
+
+print(greeting[greeting.startIndex])
+
+print(greeting[greeting.index(before: greeting.endIndex)])
+
+print(greeting[greeting.index(after: greeting.startIndex)])
+
+let index = greeting.index(greeting.startIndex, offsetBy: 7)
+
+print(greeting[index])
+
+
+// attemting to access an index outside of a strings range or a character outside of a string's rnage will trigger a runtime error 
+
+// greeting[greeting.endIndex]
+
+// greeting.index(after:greeting.endIndex)
+
+
+for index in greeting.indices {
+    print("\(greeting[index])", terminator: "")
+}
+
+//You can use the startIndex and endIndex properties and the index(before:), index(after:), and index(_:offsetBy:) methods on any type that conforms to the Collection protocol. This includes String, as shown here, as well as collection types such as Array, Dictionary, and Set.
+
+
+//inserting and removing 
+
+var welcome1 = "hello"
+
+welcome1.insert("!",at:welcome1.endIndex)
+
+
+welcome1.insert(contentsOf: " there", at: welcome1.index(before:welcome1.endIndex))
+
+print(welcome1)
+
+// to remove a specified character from a string at a specified index, use the remove(at:) method, and to remove a substring at a specified range, use the remove Subrange(_:) method 
+
+welcome1.remove(at: welcome1.index(before:welcome1.endIndex))
+
+let range: Range<String.Index> = welcome1.index(welcome1.startIndex, offsetBy: 6)..<welcome1.endIndex
+
+welcome1.removeSubrange(range)
+
+print(welcome1)
+// welcome1.removeSubrange(range)
+
+// welcome should now equal "hello" 
+
+// You can use the insert(_:at:), insert(contentsOf:at:), remove(at:), and removeSubrange(_:) methods on any type that conforms to the RangeReplaceableCollection protocol. This includes String, as shown here, as well as collection types such as Array, Dictionary, and Set.
+
+
+//Substring
+//When you get a substring from a string — for example, using a subscript or a method like prefix(_:) — the result is an instance of Substring, not another string.
+
+//However, unlike strings, you use substrings for only a short amount of time while performing actions on a string. When you’re ready to store the result for a longer time, you convert the substring to an instance of String. 
+
+
+let greeting = "Hello, world"
+
+let index = greeting.firstIndex(of: ",") ?? greeting.endIndex
+
+let beginning = greeting[..<index]
+
+
+let newStirng = String(beginning)
+
+
+//comparing Strings 
+
+// String and character equality 
+
+let quotation = "we're are a lot alike, you and I"
+
+let sameQuotation = "We're a lot alike, you and I"
+
+if quotation === sameQuotation {
+    print("These two strings are considered equal")
+}
