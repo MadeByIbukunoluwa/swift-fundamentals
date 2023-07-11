@@ -138,7 +138,7 @@ if temperatureInCelsius <= 0 {
 print(weatherAdvice)
 
 
-// All of the branches of an if expression need to contain values of the same type, because swift checks the type of each branch separately , values like nil that can be used with more than one type prevent Swift from determining the if expression's type automaticaly . Instead you ned to specify the type explicitly
+// All of the branches of an if expression need to contain values of the same type, because swift checks the type of each branch separately , values like nil that can be used with more than one type prevent Swift from determining the if expression's type automatically . Instead you ned to specify the type explicitly
 
 // let freezeWarning : String? = if temperatureInCelsius <= 0 {
 //     "It's below freezing. Watch for ice!"
@@ -221,7 +221,7 @@ print("There are \(naturalCount) \(countedThings)")
 
 
 //Tuples
-// you can also use tuples to test multiple values in swicht statements
+// you can also use tuples to test multiple values in switch statements
 //Each element of the tuple can be tested against a different value or interval of values. Alternatively, use the underscore character (_), also known as the wildcard pattern, to match any possible value.
 
 let somePoint = (1,1)
@@ -240,18 +240,230 @@ switch somePoint {
 }
 
 // value bindings 
-// A swithc case can name the value or value it matches to temporary constants or variables , for use in the body of the case. This behaviour is known as value binding , because hte values are bound to temporaray constants or varibales within the case's body 
+// A switch case can name the value or value it matches to temporary constants or variables , for use in the body of the case. This behaviour is known as value binding , because the values are bound to temporaray constants or varibales within the case's body 
 
 // The example below takes an (x, y) point, expressed as a tuple of type (Int, Int), and categorizes it on the graph that follows:
 
-let anotherPoint = (2,0)
+// let anotherPoint = (2,0)
 
-switch anotherPoint {
-case (let x,0):
-    print("on the x-axis with an x value of \(x)")
-case (0, let y):
-    print("on the y-axis with an x value of \(y)")
-case let(x,y):
-    print("somewhere else at ( \(x), \(y) )")
+// switch anotherPoint {
+// case (let x,0):
+//     print("on the x-axis with an x value of \(x)")
+// case (0, let y):
+//     print("on the y-axis with an x value of \(y)")
+// case let(x,y):
+//     print("somewhere else at ( \(x), \(y) )")
+// }
+
+//where 
+// A switch case can use a where clause to check for additional conditions
+
+// let yetAnotherPoint = (1, -1)
+// switch yetAnotherPoint {
+// case let (x, y) where x == y:
+//     print("(\(x), \(y)) is on the line x == y")
+// case let (x, y) where x == -y:
+//     print("(\(x), \(y)) is on the line x == -y")
+// case let (x, y):
+//     print("(\(x), \(y)) is just some arbitrary point")
+// }
+
+// the final case matches all possible remaining values and so a default case isn't needed to make the switch statement exhaustive 
+
+//Compound Cases
+// multiple switch cases that share the same body can be combined by writing several patterns after case, with a comma between each of the patterns 
+let someCharacter1:Character = "e"
+
+switch someCharacter {
+    case "a", "e", "i","o","u":
+        print("\(someCharacter) is a vowel")
+    case "b", "c", "d","f", "g", "h", "j", "k", "l", "m",
+    "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z":
+        print("\(someCharacter) is a consonant")
+    default:
+        print("\(someCharacter) isn't a vowel or a consonant")
 }
 
+// compund cases can also have value bindings 
+
+let stillAnotherPoint = (9,0)
+
+let invalidPoint = ("i",0)
+
+//The case above has two patterns: (let distance, 0) matches points on the x-axis and (0, let distance) matches points on the y-axis. Both patterns include a binding for distance and distance is an integer in both patterns — which means that the code in the body of the case can always access a value for distance.
+
+switch stillAnotherPoint {
+    case (let distance, 0), (0, let distance) :
+        print("On an axis, \(distance) from the origin")
+    default : 
+        print("Not on an axis")
+}
+
+
+
+// it can't even be matched the types are different 
+// switch invalidPoint {
+//     case (let distance, 0), (0, let distance) :
+//         print("On an axis, \(distance) from the origin")
+//     default : 
+//         print("Not on an axis")
+// }
+
+
+
+//Control transfer statements 
+
+
+let puzzleInput = "great minds think alike"
+var puzzleOutput = ""
+
+let charactersToRemove:[Character] = ["a", "e", "i", "o","u"]
+
+for character in puzzleInput {
+    if charactersToRemove.contains(character) {
+        continue
+    }
+    puzzleOutput.append(character)
+}
+
+print(puzzleOutput)
+
+// break 
+// the break statement ends execution of an entire control flow statement immediately 
+// it can be used in a switch or loop statement 
+// in a loop statement , it ends the loops execution immediately and transfers control to the code after the loop's closing brace 
+// in a switch statement it causes the switch statement to end its execution and transfers control to the code after the switch statement's closing brace 
+
+let numberSymbol :Character = "三" 
+
+var possibleIntegerValue:Int? 
+
+switch numberSymbol {
+    case "1", "١", "一", "๑":
+        possibleIntegerValue = 1
+    case "2", "٢", "二", "๒":
+        possibleIntegerValue = 2
+    case "3", "٣", "三", "๓":
+        possibleIntegerValue = 3
+    case "4", "٤", "四", "๔":
+        possibleIntegerValue = 4
+    default:
+        break
+}
+// the break statement ends the switch statement's execution and continues frm the if let statement
+
+
+if let integerValue = possibleIntegerValue {
+    print("The integer value of \(numberSymbol) is \(integerValue)")
+} else {
+    print("An integer value couldn't be found for \(numberSymbol)")
+}
+
+//fallthrough 
+// in Swift, swicth statements don't fall through the bottom of each case and into the next one , that is , the entire switch statement completes its execution as soon as the first matching case is completed , by contrast , C requires you to insert an explicitbreak statement at the end of very switch case to prevent fallthrough Avoiding default fallthrough means that Swift switch statements are much more concise and predictable than their counterparts in C, and thus they avoid executing multiple switch cases by mistake. but if you need C style fallthrough behaviour then you can use the fallthrough keyword 
+
+let integerToDescribe = 5 
+
+var description = "The number \(integerToDescribe) is "
+
+switch integerToDescribe {
+    case 2,3,5,7,11,13,17,19 :
+        description += " a prime number, and also"
+    fallthrough
+default:
+    description += " an integer "
+}
+
+print(description)
+
+// The fallthrough keyword doesn’t check the case conditions for the switch case that it causes execution to fall into. The fallthrough keyword simply causes code execution to move directly to the statements inside the next case (or default case) block, as in C’s standard switch statement behavior.
+
+//labeled statemments 
+
+//Early Exit 
+// A guard statement , like an if statement , executes statements depending on the Boolean value of an expression 
+// you use a guard statments to require that a condition must be true in order for the code after the guard statement to be executed , unlike an if statement, a guard statement always has an else clause 
+
+func greet (person: [String:String]) {
+    guard let name = person["name"] else {
+        return
+    }
+    print ("Hello \(name) !")
+
+    guard let location = person["location"] else {
+        print("I hope the weather is nice near you.")
+        return 
+    }
+    print("I hope the weather is nice in \(location)")
+}
+
+
+greet(person: ["name": "John"])
+
+greet(person: ["name": "Jane", "location":"Cupertino"])
+
+//Deferred Actions 
+// unlike control flow constructs like if and while which let you control whether part of your code is executed or how many times it gets executed , defer controls when a piece of code is executed 
+// you use defer block to write code that will be executed later , when your program reaches the end of the current scope 
+
+var score = 1 
+
+if score < 10 {
+    defer {
+        print(score)
+    }
+    score += 5 
+}
+// first the code in the if statement is run , which increments score by five , then , before exiting the if statement's scope , the defferd code is run , which prints score 
+
+//The code inside of the defer always runs, regardless of how the program exits that scope. That includes code like an early exit from a function, breaking out of a for loop, or throwing an error. This behavior makes defer useful for operations where you need to guarantee a pair of actions happen — like manually allocating and freeing memory, opening and closing low-level file descriptors, and beginning and ending transactions in a database — because you can write both actions next to each other in your code.
+
+var score1 = 3 
+if score1 < 100 {
+    score1 += 100 
+    defer {
+        score1 -= 100 
+    }
+    print(score1) // 103 
+    // it will print 103 because 
+}
+
+
+// if you write more than one defer block in the same scope, the first one you specify is the last one to run 
+
+var score2 = 4
+if score2 < 10 {
+    defer {
+        print(score2)
+    }
+    defer {
+        print("The score is:")
+    }
+    score2 += 5 
+}
+
+
+// if your program stops running , because of a runtime error or crash , deferred code doesn't execute 
+
+
+//Checking API availability 
+if #available(iOS 10, macOS 10.12, *) {
+    print("available")
+} else {
+    print("unavailable")
+}
+
+
+
+@available(macOS 10.12, *) 
+struct ColorPreference {
+    var bestColor = "blue"
+}
+
+func chooseBestColor() -> String {
+    guard #available(macOS 10.12, *) else {
+        return "gray"
+    }
+    let colors = ColorPreference()
+    return colors.bestColor
+}
