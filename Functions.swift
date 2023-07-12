@@ -128,7 +128,10 @@ print(anotherGreeting(for: "Dave"))
 
 // function Argument labels and parameter names 
 // Each function parameter has both an argument label and a parameter name. The argument label is used when calling the function; each argument is written in the function call with its argument label before it. The parameter name is used in the implementation of the function. By default, parameters use their parameter name as their argument label.
-
+//func someFunction(argumentLabel parameterName: Int) {
+    // In the function body, parameterName refers to the argument value
+    // for that parameter.
+// }
 func greet(person:String, from hometown:String) -> String {
     return "Hello \(person)! Glad you could visit from \(hometown)"
 }
@@ -162,9 +165,9 @@ func arithmeticMean(_ numbers:Double...)-> Double {
     return total / Double(numbers.count)
 }
 
-arithmeticMean(1,2,4,5,5,3,2,2,3,34,4,4,4)
+print(arithmeticMean(1,2,4,5,5,3,2,2,3,34,4,4,4))
 
-arithmeticMean(9.33,6.55,9.234,6,92)
+print(arithmeticMean(9.33,6.55,9.234,6,92))
 
 
 //inout paramters 
@@ -172,7 +175,7 @@ arithmeticMean(9.33,6.55,9.234,6,92)
 
 //You can only pass a variable as the argument for an in-out parameter. You can’t pass a constant or a literal value as the argument, because constants and literals can’t be modified. You place an ampersand (&) directly before a variable’s name when you pass it as an argument to an in-out parameter, to indicate that it can be modified by the function.
 
-func swapTwoInts(_a:inout Int, _ b:inout Int) {
+func swapTwoInts(_ a:inout Int, _ b:inout Int) {
     let temporaryA = a 
     a = b 
     b = temporaryA
@@ -183,8 +186,76 @@ var someInt = 3
 
 var anotherInt = 107 
 
-swapTwoInts(_a: &someInt, b: &<anotherInt>)
+swapTwoInts(&someInt,&anotherInt)
 
 print("someInt is now \(someInt), and anotherInt is now \(anotherInt)")
 
 //Function types 
+func addTwoInts(_ a:Int, _ b :Int) -> Int {
+    return a + b
+}
+// Every function has a specific function type, made up of the parameter types and the return type of the function.
+
+var mathFunction : (Int,Int) -> Int = addTwoInts
+
+print("Result: \(mathFunction(2,3))")
+
+
+// function types as parameter types 
+func printMathResult(_ mathFunction:(Int,Int)-> Int,a:Int, _ b: Int) {
+    print("Result: \(mathFunction(a,b))")
+}
+
+
+//Function types as return types
+func stepForward(_ input: Int) -> Int {
+    return input + 1 
+}
+
+func stepBackward(_ input: Int) -> Int {
+    return input - 1 
+}
+
+
+//Here’s a function called chooseStepFunction(backward:), whose return type is (Int) -> Int. The chooseStepFunction(backward:) function returns the stepForward(_:) function or the stepBackward(_:) function based on a Boolean parameter called backward:
+
+
+func chooseStepFunction(backward:Bool) -> (Int) -> Int {
+    return backward ? stepBackward : stepForward
+}
+
+
+var currentValue = 3
+
+let moveNearerToZero = chooseStepFunction(backward: currentValue > 0)
+
+
+print("Counting to zero")
+
+while currentValue != 0 {
+    print("\(currentValue)...")
+    currentValue = moveNearerToZero(currentValue)
+}
+
+
+print("zero!")
+
+
+//Nested Functions 
+
+func chooseStepFunction1(backward:Bool) -> (Int) -> Int {
+    func stepForward(_ input: Int) -> Int {return input + 1 }
+    func stepBackward(_ input: Int) -> Int {return input - 1 }
+    return backward ? stepBackward : stepForward
+}
+
+var currentValue1 = -4
+
+while currentValue1 != 0 {
+    print("\(currentValue1)...")
+    currentValue1 = moveNearerToZero(currentValue1)
+}
+
+
+print("zero!")
+
