@@ -20,6 +20,11 @@ Swift’s switch statement is considerably more powerful than its counterpart in
 
 ## Dictionaries 
 
-the contents of a Dictionary are inherenetly updated, adn iterating over them doesn;t guarantee the order in which they will be retrieved 
+the contents of a Dictionary are inherently updated, adn iterating over them doesn;t guarantee the order in which they will be retrieved 
 
+
+
+## Functions 
+
+self contained chunks of code that perform specific tasks 
 

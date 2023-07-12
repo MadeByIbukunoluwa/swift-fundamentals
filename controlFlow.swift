@@ -467,3 +467,4 @@ func chooseBestColor() -> String {
     let colors = ColorPreference()
     return colors.bestColor
 }
+
