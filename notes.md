@@ -28,3 +28,42 @@ the contents of a Dictionary are inherently updated, adn iterating over them doe
 
 self contained chunks of code that perform specific tasks 
 
+
+## Closures 
+
+Self contained blocks of functionality that can be used in your code 
+
+Global and nested functions, as introduced in Functions, are actually special cases of closures. Closures take one of three forms:
+
+Global functions are closures that have a name and don’t capture any values.
+
+Nested functions are closures that have a name and can capture values from their enclosing function.
+
+Closure expressions are unnamed closures written in a lightweight syntax that can capture values from their surrounding context.
+
+
+Closure Expression Syntax
+
+Closure expression syntax has the following general form:
+
+{ (<#parameters#>) -> <#return type#> in
+   <#statements#>
+}
+
+As an optimization, Swift may instead capture and store a copy of a value if that value isn’t mutated by a closure, and if the value isn’t mutated after the closure is created.
+
+Swift also handles all memory management involved in disposing of variables when they’re no longer needed.
+
+
+
+## Enumeration 
+
+An enumeration defines a common type for a gorup of related va;ue and enables you to work with those values in a type safe way within your code 
+
+Swift enumeration cases don’t have an integer value set by default, unlike languages like C and Objective-C. In the CompassPoint example above, north, south, east and west don’t implicitly equal 0, 1, 2 and 3. Instead, the different enumeration cases are values in their own right, with an explicitly defined type of CompassPoint.
+
+
+## Structures and Classes 
+
+Structures and classes are general-purpose, flexible constructs that become the building blocks of your program’s code. You define properties and methods to add functionality to your structures and classes using the same syntax you use to define constants, variables, and functions.
+
