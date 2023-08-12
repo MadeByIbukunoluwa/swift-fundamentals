@@ -67,3 +67,25 @@ Swift enumeration cases don’t have an integer value set by default, unlike lan
 
 Structures and classes are general-purpose, flexible constructs that become the building blocks of your program’s code. You define properties and methods to add functionality to your structures and classes using the same syntax you use to define constants, variables, and functions.
 
+## Properties 
+
+Properties associate values with a particular class, structure, or enumeration. Stored properties store constant and variable values as part of an instance, whereas computed properties calculate (rather than store) a value. Computed properties are provided by classes, structures, and enumerations. Stored properties are provided only by classes and structures.
+
+## Are property Wrappers Similar to decoprators in other languages ?
+
+Yes, property wrappers in Swift and decorators in other programming languages serve similar purposes in terms of modifying or extending the behavior of properties or variables. However, there are some differences in how they are implemented and used.
+
+Property wrappers in Swift were introduced in Swift 5.1 and provide a way to encapsulate the behavior of getting and setting property values. They allow you to define custom logic that is applied to a property's value before it's stored or retrieved. Property wrappers are often used to add additional functionality, validation, or transformation to properties.
+
+Decorators, on the other hand, are a design pattern found in many programming languages, particularly in languages like Python and Java. Decorators are used to dynamically add behaviors or responsibilities to objects or functions. They are typically applied to functions or methods and can modify the behavior of those functions by wrapping them with additional functionality.
+
+While the concepts are similar in that they both involve modifying or enhancing the behavior of properties or functions, the implementation details and syntax can vary significantly between languages. In Swift, property wrappers are specifically designed to work with properties, and they are applied using a special syntax above the property declaration. Decorators in other languages are more general and can be applied to functions, methods, classes, or even individual objects.
+
+In summary, property wrappers in Swift and decorators in other languages share a common goal of enhancing the behavior of properties and functions, but they are implemented differently and have distinct syntax and use cases.
+
+
+## Type Properties 
+
+Instance properties are properties that belong to an instance of a particular type. Every time you create a new instance of that type, it has its own set of property values, separate from any other instance.
+
+You can also define properties that belong to the type itself, not to any one instance of that type. There will only ever be one copy of these properties, no matter how many instances of that type you create. These kinds of properties are called type properties.
