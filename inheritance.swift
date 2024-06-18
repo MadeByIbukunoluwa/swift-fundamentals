@@ -59,10 +59,10 @@ let train = Train()
 train.makeNoise()
 
 
-// Overriding Propertiesin page link
+// Overriding Properties in page link
 // You can override an inherited instance or type property to provide your own custom getter and setter for that property, or to add property observers to enable the overriding property to observe when the underlying property value changes.
 
-// Overriding Property Getters and Settersin page link
+// Overriding Property Getters and Setters in page link
 // You can provide a custom getter (and setter, if appropriate) to override any inherited property, regardless of whether the inherited property is implemented as a stored or computed property at source. The stored or computed nature of an inherited property isn’t known by a subclass — it only knows that the inherited property has a certain name and type. You must always state both the name and the type of the property you are overriding, to enable the compiler to check that your override matches a superclass property with the same name and type.
 
 // You can present an inherited read-only property as a read-write property by providing both a getter and a setter in your subclass property override. You can’t, however, present an inherited read-write property as a read-only property.
@@ -84,7 +84,7 @@ print("Car: \(car.description)")
 
 
 
-// Overriding Property Observersin page link
+// Overriding Property Observers in page link
 // You can use property overriding to add property observers to an inherited property. This enables you to be notified when the value of an inherited property changes, regardless of how that property was originally implemented. For more information on property observers, see Property Observers.
 
 // Note
@@ -109,3 +109,5 @@ print("AutomaticCar: \(automatic.description)")
 
 //Preventing overrides 
 //You can prevent a method, property, or subscript from being overridden by marking it as final
+
+
